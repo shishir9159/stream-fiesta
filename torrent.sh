@@ -1,3 +1,5 @@
+#!/bin/bash
+
 TRACKER_URL=""
 TORRENT_FILE_NAME=""
 
@@ -53,13 +55,3 @@ fi
 
 #mktorrent -v -l "${PIECE_SIZE}" -p -a "${TRACKER_URL}" "${TRACKER_URL}" -o "${TORRENT_FILE_NAME}"
 mktorrent -l "${PIECE_SIZE}" -p -a "${TRACKER_URL}" "${TORRENT}"
-
-
-#find . \( -name '*.mkv' -o -name '*.avi' -o -name '*.mp4' \) -exec sh -c ' > "$1"' mysh {} \;
-
-find . -type f -name "*.mp4"
-
-ffmpeg -ss 05:00 -i <input> -t 10:00 filename%05d.png
-
-
-#ffmpeg -ss 05:00 -i <input> -t 10:00 filename%05d.png
