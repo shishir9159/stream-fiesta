@@ -38,10 +38,9 @@ for ((i = 1; i <= $#; i++)); do
     else
         url=$(sed -n 's|.*"url":"\([^"]*\)".*|\1|p' <<< "$response")
         url=${url//\\/}
+        echo "[img]"
         echo "$url"
-#        del_link=$(sed -n 's|.*"delete_url":"\([^"]*\)".*|\1|p' <<< "$response")
-#        del_link=${del_link//\\/}
-#        echo "Delete URL: $del_link" >&2
+        echo "[/img]"
         clipboard+="$url"
 
         if [ $# -gt 0 ]; then

@@ -9,9 +9,9 @@ fi
 # permission for the output folder
 
 # Create output folder
-OUT_FOLDER="$1"
+OUT_FOLDER="$2"
 
-if [[ "$1" != "" ]]; then
+if [[ "$2" != "" ]]; then
     OUT_FOLDER="./"
 elif [[ -d "${OUT_FOLDER}" ]]; then
     echo "Error! invalid output folder"
@@ -21,7 +21,7 @@ fi
 NUMBER_OF_SCREENSHOTS=3
 
 # largest and probably longest video file
-LARGEST_VIDEO_FILE=$(find . -type f -name "*.mp4" -o -name "*.mkv"  -o -name "*.webm" | sort -nr | head -1)
+LARGEST_VIDEO_FILE=$(find "$1" -type f -name "*.mp4" -o -name "*.mkv"  -o -name "*.webm" | sort -nr | head -1)
 VIDEO_LENGTH_IN_SECONDS=$(ffprobe -i "${LARGEST_VIDEO_FILE}" -show_entries format=duration -v quiet -of csv="p=0")
 
 #for i in $( eval echo {1..$NUMBER_OF_SCREENSHOTS} )

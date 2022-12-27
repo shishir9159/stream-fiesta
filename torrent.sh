@@ -21,7 +21,7 @@ fi
 #fi
 
 # set proper error codes
-if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then exist 100; fi
+if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then exit 100; fi
 
 TORRENT_SIZE=$(du --apparent-size --block-size=1K -s "${TORRENT}" | awk '{ print $1}')
 
