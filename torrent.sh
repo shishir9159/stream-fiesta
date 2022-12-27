@@ -20,7 +20,8 @@ fi
 #    TORRENT_FILE_NAME=$(echo "/home/dirac/0. Linux" | sed "s/.*\///")
 #fi
 
-if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then echo exist; fi
+# set proper error codes
+if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then exist 100; fi
 
 TORRENT_SIZE=$(du --apparent-size --block-size=1K -s "${TORRENT}" | awk '{ print $1}')
 

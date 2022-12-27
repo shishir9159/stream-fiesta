@@ -1,10 +1,22 @@
 #!/bin/bash
-
 # Requires 'ffmpeg' in path
+
+if [ -z "$(which ffmpeg)" ]; then
+    echo "ffmpeg not found, install ffmpeg before executing this script"
+    exit 0
+fi
+
+# permission for the output folder
 
 # Create output folder
 OUT_FOLDER="$1"
-OUT_FOLDER="./"
+
+if [[ "$1" != "" ]]; then
+    OUT_FOLDER="./"
+elif [[ -d "${OUT_FOLDER}" ]]; then
+    echo "Error! invalid output folder"
+    exit 125
+fi
 
 NUMBER_OF_SCREENSHOTS=3
 
