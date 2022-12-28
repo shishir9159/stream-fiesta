@@ -3,11 +3,10 @@
 TRACKER_URL=""
 TORRENT_FILE_NAME=""
 
-if [[ "$1" != "" ]]; then
-    TORRENT="$1"
+if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then
+  TORRENT="$1"
 else
-    echo "Error! no file or directory provided"
-    exit 125
+  exit 100;
 fi
 
 if [[ "${TRACKER_URL}" == "" ]]; then
@@ -20,14 +19,11 @@ fi
 #    TORRENT_FILE_NAME=$(echo "/home/dirac/0. Linux" | sed "s/.*\///")
 #fi
 
-# set proper error codes
-if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then exit 100; fi
-
 TORRENT_SIZE=$(du --apparent-size --block-size=1K -s "${TORRENT}" | awk '{ print $1}')
 
 if [[ "${TORRENT_SIZE}" == 0 ]]; then
     echo "Error! torrent file is not valid"
-    exit 125
+    exit 150
 fi
 
 if [[ "${TORRENT_SIZE}" -ge 16000000 ]]; then

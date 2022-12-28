@@ -2,7 +2,7 @@
 # Requires 'ffmpeg' in path
 
 if [ -z "$(which ffmpeg)" ]; then
-    echo "ffmpeg not found, install ffmpeg before executing this script"
+    echo "ffmpeg not found, install ffmpeg before running this script"
     exit 0
 fi
 
@@ -18,6 +18,7 @@ elif [[ -d "${OUT_FOLDER}" ]]; then
     exit 125
 fi
 
+# 1-indexed
 NUMBER_OF_SCREENSHOTS=3
 
 # largest and probably longest video file
@@ -25,7 +26,7 @@ LARGEST_VIDEO_FILE=$(find "$1" -type f -name "*.mp4" -o -name "*.mkv"  -o -name 
 VIDEO_LENGTH_IN_SECONDS=$(ffprobe -i "${LARGEST_VIDEO_FILE}" -show_entries format=duration -v quiet -of csv="p=0")
 
 #for i in $( eval echo {1..$NUMBER_OF_SCREENSHOTS} )
-for i in $(seq 0 $NUMBER_OF_SCREENSHOTS)
+for i in $(seq 1 $NUMBER_OF_SCREENSHOTS)
 do
     RANDOM_FRAME_TIME=$(date --date "00:00:00 $(shuf -n1 -i0-"${VIDEO_LENGTH_IN_SECONDS%.*}") sec" '+%T')
     #-t 1 -r 1  -vframes 1

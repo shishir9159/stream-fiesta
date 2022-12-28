@@ -1,22 +1,23 @@
 # API version 1
 # Imgbb's API v1 allows to upload pictures
 
-api_key="" #CAN NOT BE EMPTY
+# API key is a must to run this script
+API_KEY=""
 
-if [ "$api_key" == "" ]; then
+if [ "$API_KEY" == "" ]; then
     echo "No API Key found. You must configure your own key before uploading to imgbb"
     echo "Grab an API key from https://api.imgbb.com/"
     exit 0
 fi
 
 if [ -z "$(which curl)" ]; then
-    echo "curl not found, install curl before executing this script"
+    echo "curl not found, install curl before running this script"
     exit 0
 fi
 
 function upload(){
     # api with expiration: "https://api.imgbb.com/1/upload?expiration=600&key=YOUR_CLIENT_API_KEY"
-    curl -s --location --request POST "https://api.imgbb.com/1/upload?key=$api_key" --form "image=$1"
+    curl -s --location --request POST "https://api.imgbb.com/1/upload?key=$API_KEY" --form "image=$1"
 }
 
 # Start loop for uploading
@@ -38,14 +39,15 @@ for ((i = 1; i <= $#; i++)); do
     else
         url=$(sed -n 's|.*"url":"\([^"]*\)".*|\1|p' <<< "$response")
         url=${url//\\/}
-        echo "[img]"
         echo "$url"
-        echo "[/img]"
+        arguments+=("$url")
         clipboard+="$url"
 
         if [ $# -gt 0 ]; then
 		    clipboard+=$'\n'
-
-	    fi
+	      fi
     fi
 done
+
+#-p '/some/path'
+ ./video_template.sh arguments
