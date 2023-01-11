@@ -2,13 +2,10 @@
 
 ############################################################
 ############################################################
-#                 Book Metadata Templating                 #
+#                         Install                          #
 ############################################################
 ############################################################
 
-# Comic Book
-# Amazon Metadata
-
-LARGEST_BOOK_FILE=$(find "${TARGET_DIRECTORY}" -type f -name "*.djvu" -o -name "*.epub" -o -name "*.mobi" -o -name "*.pdf" | sort -nr | head -1)
-
-# List
+# static linking and move to binaries
+# parser, chmod
+# set to /usr/local/bin or /usr/bin

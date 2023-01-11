@@ -1,10 +1,15 @@
 #!/bin/bash
 
-TRACKER_URL=""
-TORRENT_FILE_NAME=""
+############################################################
+############################################################
+#                         Torrent                          #
+############################################################
+############################################################
 
-if [ -f "${TORRENT}" ] || [ -d "${TORRENT}" ]; then
-  TORRENT="$1"
+TORRENT_FILE_NAME_SUFFIX=""
+
+if [ -f "${TARGET_DIRECTORY}" ] || [ -d "${TARGET_DIRECTORY}" ]; then
+  TARGET_DIRECTORY="$1"
 else
   exit 100;
 fi
@@ -14,10 +19,10 @@ if [[ "${TRACKER_URL}" == "" ]]; then
     exit 125
 fi
 
-#   using sed would create unnecessary dependencies
-#if [[ "${TORRENT_FILE_NAME}" == "" ]] then
-#    TORRENT_FILE_NAME=$(echo "/home/dirac/0. Linux" | sed "s/.*\///")
-#fi
+# avoiding sed, as there would be unnecessary dependency on top of the others
+# if [[ "${TORRENT_FILE_NAME}" == "" ]] then
+#     TORRENT_FILE_NAME=$(echo "/home/user_name/torrent_directory" | sed "s/.*\///")
+# fi
 
 TORRENT_SIZE=$(du --apparent-size --block-size=1K -s "${TORRENT}" | awk '{ print $1}')
 
@@ -48,7 +53,7 @@ else
     PIECE_SIZE=15
 fi
 
-#-p - Sets the private flag on the torrent. This should be set when it will be seeded on private trackers.
+# -p - Sets the private flag on the torrent. This should be set when it will be seeded on private trackers.
 
-#mktorrent -v -l "${PIECE_SIZE}" -p -a "${TRACKER_URL}" "${TRACKER_URL}" -o "${TORRENT_FILE_NAME}"
-mktorrent -l "${PIECE_SIZE}" -p -a "${TRACKER_URL}" "${TORRENT}"
+# mktorrent -v -l "${PIECE_SIZE}" -p -a "${TRACKER_URL}" "${TRACKER_URL}" -o "${TORRENT_FILE_NAME}"
+mktorrent -l "${PIECE_SIZE}" -p -a "${TRACKER_URL}" "${TARGET_DIRECTORY}"

@@ -1,12 +1,23 @@
+#!/bin/bash
+
+############################################################
+############################################################
+#                       Image Upload                       #
+############################################################
+############################################################
+
 # API version 1
 # Imgbb's API v1 allows to upload pictures
 
 # API key is a must to run this script
-API_KEY=""
-
 if [ "$API_KEY" == "" ]; then
-    echo "No API Key found. You must configure your own key before uploading to imgbb"
+    echo "No API Key found. You must configure your own key before uploading to imgBB"
     echo "Grab an API key from https://api.imgbb.com/"
+    exit 0
+fi
+
+if [ -z "$(which sed)" ]; then
+    echo "sed not found, install sed before running this script"
     exit 0
 fi
 
@@ -17,7 +28,7 @@ fi
 
 function upload(){
     # api with expiration: "https://api.imgbb.com/1/upload?expiration=600&key=YOUR_CLIENT_API_KEY"
-    curl -s --location --request POST "https://api.imgbb.com/1/upload?key=$API_KEY" --form "image=$1"
+    curl -s --location --request POST "https://api.imgbb.com/1/upload?key=$API_KEY" --form "image=$1"    # $1 represent argument that's passed as a value
 }
 
 # Start loop for uploading
@@ -49,5 +60,4 @@ for ((i = 1; i <= $#; i++)); do
     fi
 done
 
-#-p '/some/path'
- ./video_template.sh arguments
+./video_template.sh arguments

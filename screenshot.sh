@@ -8,6 +8,7 @@ fi
 
 # permission for the output folder
 
+
 # Create output folder
 OUT_FOLDER="$2"
 
