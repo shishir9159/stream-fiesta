@@ -33,11 +33,21 @@ doParseConfFile() {
 eof func doParseConfFile
 
 setParseConfFile() {
-    exit
+#   need to be "=" improved
+#   "/" can be in the api key
+#   sed -i 's#^\(cent/ral\.data/base\s*=\s*\).*$#\1SQL/TEST#' file.cfg
+    sed -c -i "s/\($TARGET_KEY *= *\).*/\1$UPDATED_VALUE/" $config
 }
 eof func setParseConfFile
 
 doParseConfFile(){
+
+#     # initialize config file if it's missing
+#     if [ ! -e "${config}" ] ; then
+#         # Set default variable value
+#         sudo touch $config
+#         echo "myname=\"Test\"" | sudo tee --append $config
+#     fi
 
     # search current directory, and then default location
     if [ -f "$(dirname "$0")"/stream-fiesta.conf ]; then
@@ -45,6 +55,9 @@ doParseConfFile(){
     elif [ -f ~/.config/stream-fiesta.conf ];then
         createConfigFile
     fi
+
+    # load the config file
+    source $config
 
     # however if there is a host dependant cnf file override it
     test -f "$config" \
